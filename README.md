@@ -11,10 +11,11 @@ https://ntc.party/t/byedpi-web-manager-windows-linux
 # Сначала скачайте образ напрямую (Docker Hub):
 docker pull eblet/byedpi-web-manager:latest
 
-# Или сразу запускайте контейнер:
+# Или сразу запускайте контейнер (данные сохранятся на диск):
 docker run -d \
   --name byedpi-web-manager \
   -p 8080:80 \
+  -v $(pwd)/data:/app/data \
   eblet/byedpi-web-manager:latest
 ```
 
@@ -34,9 +35,6 @@ add address=192.168.254.2/24 gateway=192.168.254.1 name=byedpi
 - Поддержка ARMv6/v7, ARM64, AMD64 (x86_64)
 - Всё работает в Docker, никаких зависимостей
 - Можно использовать на роутерах MikroTik с контейнерами
-
-## Документация
-- Для сохранения данных используйте volume: `-v /your/data:/app/data`
 
 ## Локальная сборка образов (build.sh)
 
