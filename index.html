@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByeDPI Web Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="block" id="block-1">
+            <p class="text-xl font-normal">ByeDPI Web Manager</p>
+            <span class="text-base font-normal" id="my-os">n/a</span>
+        </div>
+
+        <div class="block" id="block-2">
+            <p class="text-lg font-normal border-b">Логи выполнения</p>
+            <div class="textarea text-sm" id="log"></div>
+            <select class="select text-base font-normal full-width form-element like-a-button" id="log-level">
+                <option value="log-level-error">Ошибки</option>
+                <option value="log-level-info-plus-error" selected>Информация + Ошибки</option>
+                <option value="log-level-info-plus-error-plus-debug">Информация + Ошибки + Отладка</option>
+                <option value="log-level-hide-all">Скрыть всё</option>
+            </select>
+        </div>
+
+        <div class="block" id="block-3" hidden>
+            <p class="text-lg font-normal border-b">Генератор стратегий</p>
+            <div class="tab-content">
+                <p class="text-base font-normal mb-2">Аргументы:</p>
+                <table class="table mb-2">
+                    <thead>
+                        <tr>
+                            <th>Весы (Вероятность)</th>
+                            <th>Аргумент</th>
+							<th>Зависимость</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="buf-size">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-buf-size-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-buf-size-parameter">--buf-size</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-buf-size-dependency">Нет</span></td>
+                            <td><input type="text" class="input no-border full-width form-element" value="16384" id="gen-buf-size-value"></td>
+                        </tr>
+                        <tr id="def-ttl">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-def-ttl-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-def-ttl-parameter">--def-ttl</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-def-ttl-dependency">Нет</span></td>
+                            <td><input type="text" class="input no-border full-width form-element" value="64" id="gen-def-ttl-value"></td>
+                        </tr>
+                        <tr id="tfo">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-tfo-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-tfo-parameter">--tfo</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-tfo-dependency">Нет</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Нет</span></td>
+                        </tr>
+                        <tr id="mod-http">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-mod-http-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-mod-http-parameter">--mod-http</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-mod-http-dependency">Нет</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-mod-http-value">
+                                            <option value="h">h ("hOsT: name")</option>
+                                            <option value="d">d ("Host: NaMe")</option>
+                                            <option value="r">r ("Host:name\t")</option>
+                                            <option value="h,d">h + d</option>
+                                            <option value="h,r">h + r</option>
+                                            <option value="d,r">d + r</option>
+                                            <option value="h,d,r" selected>h + d + r</option>
+                                </select>
+							</td>
+                        </tr>
+                        <tr id="drop-sack">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-drop-sack-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-drop-sack-parameter">--drop-sack</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-drop-sack-dependency">Нет</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Нет</span></td>
+                        </tr>
+                        <tr id="split">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-split-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-split-parameter">--split</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-split-dependency">Нет</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Использует флаги</span></td>
+                        </tr>
+                        <tr id="disorder">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-disorder-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-disorder-parameter">--disorder</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-disorder-dependency">Нет</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Использует флаги</span></td>
+                        </tr>
+                        <tr id="oob">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-oob-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-oob-parameter">--oob</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-oob-dependency">Нет</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Использует флаги</span></td>
+                        </tr>
+                        <tr id="disoob">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-disoob-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-disoob-parameter">--disoob</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-disoob-dependency">Нет</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Использует флаги</span></td>
+                        </tr>
+                        <tr id="tlsrec">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-tlsrec-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-tlsrec-parameter">--tlsrec</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-tlsrec-dependency">Нет</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Использует флаги</span></td>
+                        </tr>
+                        <tr id="fake">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-fake-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-fake-parameter">--fake</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-fake-dependency">Нет</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Использует флаги</span></td>
+                        </tr>
+                        <tr id="oob-data">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-oob-data-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-oob-data-parameter">--oob-data</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-oob-data-dependency">--oob или --disoob</span></td>
+                            <td><input type="text" class="input no-border full-width form-element" value="a" id="gen-oob-data-value"></td>
+                        </tr>
+                        <tr id="fake-offset">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-fake-offset-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-fake-offset-parameter">--fake-offset</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-fake-offset-dependency">--fake</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Использует флаги</span></td>
+                        </tr>
+                        <tr id="md5sig">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-md5sig-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-md5sig-parameter">--md5sig</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-md5sig-dependency">--fake</span></td>
+                            <td><span class="for-text no-border full-width form-element" >Нет</span></td>
+                        </tr>
+                        <tr id="ttl">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-ttl-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-ttl-parameter">--ttl</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-ttl-dependency">--fake</span></td>
+                            <td><input type="text" class="input no-border full-width form-element" value="8" id="gen-ttl-value"></td>
+                        </tr>
+                        <tr id="fake-data">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-fake-data-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-fake-data-parameter">--fake-data</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-fake-data-dependency">--fake</span></td>
+                            <td><input type="text" class="input no-border full-width form-element" value="\x6D\x69\x63" id="gen-fake-data-value"></td>
+                        </tr>
+                        <tr id="fake-sni">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-fake-sni-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-fake-sni-parameter">--fake-sni</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-fake-sni-dependency">--fake</span></td>
+                            <td><input type="text" class="input no-border full-width form-element" value="microsoft.com" id="gen-fake-sni-value"></td>
+                        </tr>
+                        <tr id="fake-tls-mod">
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-fake-tls-mod-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-fake-tls-mod-parameter">--fake-tls-mod</span></td>
+							<td><span class="for-text no-border full-width form-element" id="gen-fake-tls-mod-dependency">--fake</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-fake-tls-mod-value">
+                                            <option value="r">Случайные данные</option>
+                                            <option value="o">Оригинальный ClientHello</option>
+                                </select>
+							</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-base font-normal mb-2">Флаги:</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Весы (Вероятность)</th>
+                            <th>Флаг</th>
+                            <th>Смещение (От)</th>
+                            <th>Смещение (До)</th>
+                            <th>Повтор (От)</th>
+                            <th>Повтор (До)</th>
+                            <th>Пропуск (От)</th>
+                            <th>Пропуск (До)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+					
+<!--'лять-->
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-weight">
+                                    <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-flag-value">Нет</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+<!--'лять-->						
+					
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-n-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-n-flag-value">+n</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-n-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-n-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-n-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-n-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-n-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-n-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-nm-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-nm-flag-value">+nm</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-nm-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-nm-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-nm-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-nm-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-nm-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-nm-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-ne-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-ne-flag-value">+ne</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-ne-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-ne-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-ne-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-ne-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-ne-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-ne-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-s-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-s-flag-value">+s</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-s-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-s-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-s-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-s-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-s-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-s-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-sm-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-sm-flag-value">+sm</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-sm-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-sm-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-sm-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-sm-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-sm-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-sm-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-se-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-se-flag-value">+se</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-se-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-se-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-se-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-se-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-se-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-se-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-h-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-h-flag-value">+h</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-h-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-h-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-h-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-h-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-h-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-h-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-hm-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-hm-flag-value">+hm</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-hm-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-hm-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-hm-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-hm-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-hm-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-hm-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-he-weight">
+                                    <option value="0">Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                </select>
+                            </td>
+                            <td><span class="for-text no-border full-width form-element" id="gen-he-flag-value">+he</span></td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-he-offset-from-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10" selected>-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-he-offset-to-value">
+                                    <option value="-30">-30</option>
+                                    <option value="-25">-25</option>
+                                    <option value="-20">-20</option>
+                                    <option value="-15">-15</option>
+                                    <option value="-10">-10</option>
+                                    <option value="-5">-5</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-1">-1</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-he-repeat-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-he-repeat-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-he-skip-from-value">
+                                    <option value="0">0</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="select no-border full-width form-element" id="gen-he-skip-to-value">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="grid grid-cols-4">
+                <select id="modificator-choise" class="select full-width form-element like-a-button">
+                    <option value="offset-and-flag" selected>Только смещение</option>
+                    <option value="complex-and-flag">Смещение/Повторы/Пропуски</option>
+                </select>
+                <select id="gen-desync-count" class="select full-width form-element like-a-button">
+                    <option value="1">Десинхронизаторов в строке: 1</option>
+                    <option value="2">Десинхронизаторов в строке: 2</option>
+                    <option value="3" selected>Десинхронизаторов в строке: 3</option>
+                    <option value="4">Десинхронизаторов в строке: 4</option>
+                    <option value="5">Десинхронизаторов в строке: 5</option>
+                    <option value="6">Десинхронизаторов в строке: 6</option>
+                    <option value="7">Десинхронизаторов в строке: 7</option>
+                    <option value="8">Десинхронизаторов в строке: 8</option>
+                    <option value="9">Десинхронизаторов в строке: 9</option>
+                    <option value="10">Десинхронизаторов в строке: 10</option>
+                </select>
+                <select id="gen-strings-count" class="select full-width form-element like-a-button">
+                    <option value="50">Количество требуемых строк: 50</option>
+                    <option value="100">Количество требуемых строк: 100</option>
+                    <option value="250">Количество требуемых строк: 250</option>
+                    <option value="500">Количество требуемых строк: 500</option>
+                    <option value="1000" selected>Количество требуемых строк: 1000</option>
+                    <option value="2000">Количество требуемых строк: 2000</option>
+                    <option value="3000">Количество требуемых строк: 3000</option>
+                    <option value="4000">Количество требуемых строк: 4000</option>
+                    <option value="5000">Количество требуемых строк: 5000</option>
+                    <option value="10000">Количество требуемых строк: 10000</option>
+                </select>
+                <button type="button" class="button full-width form-element like-a-button" id="generate">Сгенерировать</button>
+            </div>
+        </div>
+
+        <div class="block" id="block-4" hidden>
+            <p class="text-lg font-normal border-b">Сгенерированные стратегии</p>
+            <textarea id="generated-strategies" class="textarea text-sm"></textarea>
+            <div class="grid grid-cols-3">
+			    <button type="button" class="button btn-primary form-element like-a-button" id="add-used-strategies">Добавить используемые</button>
+                <button type="button" class="button btn-primary form-element like-a-button" id="copy-generated-strategies">Копировать</button>
+                <button type="button" class="button btn-primary form-element like-a-button" id="clear-strategies">Очистить</button>
+            </div>
+        </div>
+
+        <div class="block" id="block-5" hidden>
+            <p class="text-lg font-normal border-b">Ссылки для проверки стратегий</p>
+            <textarea id="links" class="textarea text-sm"></textarea>
+            <div class="grid grid-cols-5">
+                <select class="select full-width form-element like-a-button" id="select-links">
+				</select>
+                <button type="button" class="button form-element like-a-button" id="add-links">Добавить ссылки</button>
+                <button type="button" class="button full-width form-element like-a-button" id="copy-links">Копировать</button>
+                <button type="button" class="button full-width form-element like-a-button" id="copy-links-domains">Копировать домены</button>				
+                <button type="button" class="button full-width form-element like-a-button" id="clear-links">Очистить</button>
+            </div>
+        </div>
+
+        <div class="block" id="block-6" hidden>
+            <p class="text-lg font-normal border-b">Настройка Curl</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Таймаут соединения</th>
+                        <th>Максимальный таймаут</th>
+                        <th>Метод HTTP запроса</th>
+                        <th>Версия HTTP запроса</th>
+                        <th>User Agent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select class="select no-border full-width form-element" id="curl-connection-timeout">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="select no-border full-width form-element" id="curl-max-timeout">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4" selected>4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="select no-border full-width form-element" id="curl-http-method">
+                                <option value="get" selected>GET</option>
+                                <option value="head">HEAD</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="select no-border full-width form-element" id="curl-http-version">
+                                <option value="http1-0">HTTP/1.0</option>
+                                <option value="http1-1" selected>HTTP/1.1</option>
+                                <option value="http2">HTTP/2</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="select no-border full-width form-element" id="curl-user-agent">
+                                <option value="1" selected>(Windows) Microsoft Edge</option>
+                                <option value="2">(Windows) Mozilla Firefox</option>
+								<option value="3">(Android) Samsung Internet Browser</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="block" id="block-7" hidden>
+            <p class="text-lg font-normal border-b">Проверка стратегий</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Статус</th>
+                        <th>Потоки</th>
+                        <th>Текущее количество потоков</th>
+                        <th>Всего ссылок</th>
+                        <th>Всего стратегий</th>
+                        <th>Обработано стратегий</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="for-text no-border full-width form-element" id="process-status">Не запущено</span></td>
+                        <td>
+                            <select class="select no-border full-width form-element" id="process-threads">
+                                <option value="1">1</option>
+                                <option value="4">4</option>
+                                <option value="8">8</option>
+                                <option value="12" selected>12</option>
+                                <option value="16">16</option>
+                                <option value="20">20</option>
+                            </select>
+                        </td>
+                        <td><span class="for-text no-border full-width form-element" id="current-threads-count">0</span></td>
+						<td><span class="for-text no-border full-width form-element" id="total-links">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="total-strategies">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="processed-strategies-count">0</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+                <button type="button" class="button full-width form-element like-a-button" id="process-start">Запустить</button>
+                <button type="button" class="button full-width form-element like-a-button" id="process-stop" hidden>Остановить</button>
+
+        </div>
+
+        <div class="block" id="block-8" hidden>
+            <p class="text-lg font-normal border-b">Результаты</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>0-9%</th>
+                        <th>10-19%</th>
+                        <th>20-29%</th>
+                        <th>30-39%</th>
+                        <th>40-49%</th>
+                        <th>50-59%</th>
+                        <th>60-69%</th>
+                        <th>70-79%</th>
+                        <th>80-89%</th>
+                        <th>90-99%</th>
+                        <th>100%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-0-9">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-10-19">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-20-29">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-30-39">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-40-49">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-50-59">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-60-69">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-70-79">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-80-89">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-90-99">0</span></td>
+                        <td><span class="for-text no-border full-width form-element" id="percentage-100">0</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="result" class="textarea text-sm"></div>
+            <div class="grid grid-cols-3">
+                <select class="select full-width form-element like-a-button" id="select-result">
+        <option value="all">Отобразить всё</option>
+        <option value="hide">Скрыть всё</option>
+        <option value="0-9">Отобразить с 0-9%</option>
+        <option value="10-19">Отобразить с 10-19%</option>
+        <option value="20-29">Отобразить с 20-29%</option>
+        <option value="30-39">Отобразить с 30-39%</option>
+        <option value="40-49">Отобразить с 40-49%</option>
+        <option value="50-59">Отобразить с 50-59%</option>
+        <option value="60-69">Отобразить с 60-69%</option>
+        <option value="70-79">Отобразить с 70-79%</option>
+        <option value="80-89">Отобразить с 80-89%</option>
+        <option value="90-99">Отобразить с 90-99%</option>
+        <option value="100">Отобразить с 100%</option>
+    </select>
+                <button type="button" class="button full-width form-element like-a-button" id="copy-result">Копировать</button>
+                <button type="button" class="button full-width form-element like-a-button" id="copy-result-strategies">Копировать стратегии</button>
+            </div>
+        </div>
+
+        <div class="block" id="block-9" hidden>
+            <p class="text-lg font-normal border-b">ByeDPI для использования</p>
+            <div class="grid grid-cols-4 gap-2">
+                <div class="server-block" id="my-server-1">
+                    <p class="text-base font-normal border-b" id="my-server-1-ip-and-port"></p>
+                    <p class="text-base font-normal">Стратегия:</p>
+                    <input type="text" class="input full-width form-element" id="my-server-1-strategy">
+                    <p class="text-base font-normal">Домены (Для PAC и хост листа):</p>
+					<textarea id="my-server-1-links" class="textarea text-sm"></textarea>
+                    <button type="button" class="button form-element like-a-button" id="save-domains-main-server-1">Сохранить домены</button>
+                <select class="select full-width form-element like-a-button" id="select-use-domains-list-or-not-1">
+                    <option value="true">Использовать хост лист</option>
+                    <option value="false" selected>Не использовать хост лист</option>
+                </select>
+                    <div class="grid grid-cols-2">
+                        <button class="button form-element like-a-button" id="copy-main-server-1">Копировать</button>
+                        <button class="button form-element like-a-button" id="clean-main-server-1">Очистить</button>
+					</div>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-1">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-1">Остановить</button>
+
+                </div>
+
+                <div class="server-block" id="my-server-2">
+                    <p class="text-base font-normal border-b" id="my-server-2-ip-and-port"></p>
+                    <p class="text-base font-normal">Стратегия:</p>
+                    <input type="text" class="input full-width form-element" id="my-server-2-strategy">
+                    <p class="text-base font-normal">Домены (Для PAC и хост листа):</p>
+					<textarea id="my-server-2-links" class="textarea text-sm"></textarea>
+                    <button type="button" class="button form-element like-a-button" id="save-domains-main-server-2">Сохранить домены</button>
+                <select class="select full-width form-element like-a-button" id="select-use-domains-list-or-not-2">
+                    <option value="true">Использовать хост лист</option>
+                    <option value="false" selected>Не использовать хост лист</option>
+                </select>
+                    <div class="grid grid-cols-2">
+                        <button class="button form-element like-a-button" id="copy-main-server-2">Копировать</button>
+                        <button class="button form-element like-a-button" id="clean-main-server-2">Очистить</button>
+					</div>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-2">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-2">Остановить</button>
+
+                </div>
+
+                <div class="server-block" id="my-server-3">
+                    <p class="text-base font-normal border-b" id="my-server-3-ip-and-port"></p>
+                    <p class="text-base font-normal">Стратегия:</p>
+                    <input type="text" class="input full-width form-element" id="my-server-3-strategy">
+                    <p class="text-base font-normal">Домены (Для PAC и хост листа):</p>
+					<textarea id="my-server-3-links" class="textarea text-sm"></textarea>
+                    <button type="button" class="button form-element like-a-button" id="save-domains-main-server-3">Сохранить домены</button>
+                <select class="select full-width form-element like-a-button" id="select-use-domains-list-or-not-3">
+                    <option value="true">Использовать хост лист</option>
+                    <option value="false" selected>Не использовать хост лист</option>
+                </select>
+                    <div class="grid grid-cols-2">
+                        <button class="button form-element like-a-button" id="copy-main-server-3">Копировать</button>
+                        <button class="button form-element like-a-button" id="clean-main-server-3">Очистить</button>
+					</div>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-3">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-3">Остановить</button>
+
+                </div>
+
+                <div class="server-block" id="my-server-4">
+                    <p class="text-base font-normal border-b" id="my-server-4-ip-and-port"></p>
+                    <p class="text-base font-normal">Стратегия:</p>
+                    <input type="text" class="input full-width form-element" id="my-server-4-strategy">
+                    <p class="text-base font-normal">Домены (Для PAC и хост листа):</p>
+					<textarea id="my-server-4-links" class="textarea text-sm"></textarea>
+                    <button type="button" class="button form-element like-a-button" id="save-domains-main-server-4">Сохранить домены</button>
+                <select class="select full-width form-element like-a-button" id="select-use-domains-list-or-not-4">
+                    <option value="true">Использовать хост лист</option>
+                    <option value="false" selected>Не использовать хост лист</option>
+                </select>
+                    <div class="grid grid-cols-2">
+                        <button class="button form-element like-a-button" id="copy-main-server-4">Копировать</button>
+                        <button class="button form-element like-a-button" id="clean-main-server-4">Очистить</button>
+					</div>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-4">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-4">Остановить</button>
+
+                </div>
+
+                <div class="server-block" id="my-server-5">
+                    <p class="text-base font-normal border-b" id="my-server-5-ip-and-port"></p>
+                    <p class="text-base font-normal">Стратегия:</p>
+                    <input type="text" class="input full-width form-element" id="my-server-5-strategy">
+                    <p class="text-base font-normal">Домены (Для PAC и хост листа):</p>
+					<textarea id="my-server-5-links" class="textarea text-sm"></textarea>
+                    <button type="button" class="button form-element like-a-button" id="save-domains-main-server-5">Сохранить домены</button>
+                <select class="select full-width form-element like-a-button" id="select-use-domains-list-or-not-5">
+                    <option value="true">Использовать хост лист</option>
+                    <option value="false" selected>Не использовать хост лист</option>
+                </select>
+                    <div class="grid grid-cols-2">
+                        <button class="button form-element like-a-button" id="copy-main-server-5">Копировать</button>
+                        <button class="button form-element like-a-button" id="clean-main-server-5">Очистить</button>
+					</div>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-5">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-5">Остановить</button>
+
+                </div>
+
+                <div class="server-block" id="my-server-6">
+                    <p class="text-base font-normal border-b" id="my-server-6-ip-and-port"></p>
+                    <p class="text-base font-normal">Стратегия:</p>
+                    <input type="text" class="input full-width form-element" id="my-server-6-strategy">
+                    <p class="text-base font-normal">Домены (Для PAC и хост листа):</p>
+					<textarea id="my-server-6-links" class="textarea text-sm"></textarea>
+                    <button type="button" class="button form-element like-a-button" id="save-domains-main-server-6">Сохранить домены</button>
+                <select class="select full-width form-element like-a-button" id="select-use-domains-list-or-not-6">
+                    <option value="true">Использовать хост лист</option>
+                    <option value="false" selected>Не использовать хост лист</option>
+                </select>
+                    <div class="grid grid-cols-2">
+                        <button class="button form-element like-a-button" id="copy-main-server-6">Копировать</button>
+                        <button class="button form-element like-a-button" id="clean-main-server-6">Очистить</button>
+					</div>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-6">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-6">Остановить</button>
+
+                </div>
+
+                <div class="server-block" id="my-server-7">
+                    <p class="text-base font-normal border-b" id="my-server-7-ip-and-port"></p>
+                    <p class="text-base font-normal">Стратегия:</p>
+                    <input type="text" class="input full-width form-element" id="my-server-7-strategy">
+                    <p class="text-base font-normal">Домены (Для PAC и хост листа):</p>
+					<textarea id="my-server-7-links" class="textarea text-sm"></textarea>
+                    <button type="button" class="button form-element like-a-button" id="save-domains-main-server-7">Сохранить домены</button>
+                <select class="select full-width form-element like-a-button" id="select-use-domains-list-or-not-7">
+                    <option value="true">Использовать хост лист</option>
+                    <option value="false" selected>Не использовать хост лист</option>
+                </select>
+                    <div class="grid grid-cols-2">
+                        <button class="button form-element like-a-button" id="copy-main-server-7">Копировать</button>
+                        <button class="button form-element like-a-button" id="clean-main-server-7">Очистить</button>
+					</div>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-7">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-7">Остановить</button>
+
+                </div>
+
+                <div class="server-block" id="my-server-8">
+                    <p class="text-base font-normal border-b" id="my-server-8-ip-and-port"></p>
+                    <p class="text-base font-normal">Стратегия:</p>
+                    <input type="text" class="input full-width form-element" id="my-server-8-strategy">
+                    <p class="text-base font-normal">Домены (Для PAC и хост листа):</p>
+					<textarea id="my-server-8-links" class="textarea text-sm"></textarea>
+                    <button type="button" class="button form-element like-a-button" id="save-domains-main-server-8">Сохранить домены</button>
+                <select class="select full-width form-element like-a-button" id="select-use-domains-list-or-not-8">
+                    <option value="true">Использовать хост лист</option>
+                    <option value="false" selected>Не использовать хост лист</option>
+                </select>
+                    <div class="grid grid-cols-2">
+                        <button class="button form-element like-a-button" id="copy-main-server-8">Копировать</button>
+                        <button class="button form-element like-a-button" id="clean-main-server-8">Очистить</button>
+					</div>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-8">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-8">Остановить</button>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="block" id="block-10" hidden>
+            <p class="text-lg font-normal border-b">Ссылка на файл для автоматической настройки прокси сервера (PAC)</p>
+			<div class="grid grid-cols-2">
+                <input type="text" class="input full-width form-element" id="pac-link" readonly>
+			    <button type="button" class="button form-element like-a-button" id="copy-pac-link">Копировать</button>
+			</div>
+        </div>
+    </div>
+
+<script src="js/prepare.js?_=<?= Date.now() ?>"></script>
+<script src="js/generate.js?_=<?= Date.now() ?>"></script>
+<script src="js/save_domains.js?_=<?= Date.now() ?>"></script>
+<script src="js/start_stop_main.js?_=<?= Date.now() ?>"></script>
+<script src="js/start_stop_test.js?_=<?= Date.now() ?>"></script>
+
+
+</body>
+</html>

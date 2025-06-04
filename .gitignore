@@ -1,0 +1,57 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Docker build cache
+.docker-cache/
+
+# Runtime data
+/data/
+/logs/
+
+# Test files
+test-*.sh
+*test*.php
+*debug*.php
+
+# Configuration backups
+config.json.bak
+*.backup
+
+# Node modules (if any JS tooling is added)
+node_modules/
+
+# Local environment files
+.env
+.env.local
+
+# SSL certificates (if any)
+*.key
+*.crt
+*.pem
+
+# Compressed files
+*.tar
+*.tar.gz
+*.zip
+
+# Build artifacts
+build/
+dist/ 

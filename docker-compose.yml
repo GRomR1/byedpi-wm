@@ -1,0 +1,38 @@
+services:
+  byedpi-web-manager:
+    image: eblet/byedpi-web-manager:latest
+    container_name: byedpi-web-manager
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      # Persistent data directory
+      - byedpi_data:/app/data
+      # Optional: Custom configuration
+      # - ./config.json:/app/config.json:ro
+      # Optional: Custom hosts files
+      # - ./hosts:/app/byedpi:ro
+    environment:
+      # Optional environment variables
+      - PHP_MEMORY_LIMIT=128M
+      - NGINX_WORKER_PROCESSES=auto
+    # Optional: Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+    # Optional: Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/prepare.php"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  byedpi_data:
+    driver: local 

@@ -1,0 +1,84 @@
+services:
+  byedpi-web-manager:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      platforms:
+        - linux/amd64
+        - linux/arm64
+        - linux/arm/v7
+        - linux/arm/v5
+    image: byedpi-web-manager:latest
+    container_name: byedpi-web-manager
+    restart: unless-stopped
+    
+    ports:
+      # Web interface
+      - "8080:80"
+      # ByeDPI proxy ports
+      - "20001-20028:20001-20028"
+    
+    volumes:
+      # Persistent data
+      - byedpi_data:/app/data
+      - byedpi_logs:/app/logs
+      
+      # Optional: mount custom configuration
+      # - ./config.json:/app/data/config.json:rw
+      # - ./local.pac:/app/data/local.pac:rw
+    
+    environment:
+      # Container timezone
+      - TZ=Europe/Moscow
+      
+      # PHP settings
+      - PHP_MEMORY_LIMIT=128M
+      - PHP_MAX_EXECUTION_TIME=300
+      
+      # Nginx settings
+      - NGINX_WORKER_PROCESSES=auto
+    
+    # Security settings for MikroTik compatibility
+    user: "0:0"  # Root user required for network operations
+    privileged: false
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    
+    # Resource limits (adjust for MikroTik)
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  byedpi_data:
+    driver: local
+  byedpi_logs:
+    driver: local
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16 

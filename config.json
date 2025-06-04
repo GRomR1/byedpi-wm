@@ -1,0 +1,98 @@
+{
+    "local_ip": "127.0.0.1",
+    "ciadpi_main_servers_tcp_ports": {
+        "main_1": 20001,
+        "main_2": 20002,
+        "main_3": 20003,
+        "main_4": 20004,
+        "main_5": 20005,
+        "main_6": 20006,
+        "main_7": 20007,
+        "main_8": 20008
+    },
+    "ciadpi_main_servers_latest_used_strategies": {
+        "main_1": "--oob -3:1:2 --oob-data a --tlsrec -5:2:2 --disorder -3:1:2",
+        "main_2": "--split 1:1:1 --disorder 10:2:1",
+        "main_3": "--tlsrec 5:1:1 --oob 2:1:2",
+        "main_4": "--oob 2+n",
+        "main_5": "",
+        "main_6": "",
+        "main_7": "",
+        "main_8": ""
+    },
+    "ciadpi_test_servers_tcp_ports": {
+        "thread_1": 20009,
+        "thread_2": 20010,
+        "thread_3": 20011,
+        "thread_4": 20012,
+        "thread_5": 20013,
+        "thread_6": 20014,
+        "thread_7": 20015,
+        "thread_8": 20016,
+        "thread_9": 20017,
+        "thread_10": 20018,
+        "thread_11": 20019,
+        "thread_12": 20020,
+        "thread_13": 20021,
+        "thread_14": 20022,
+        "thread_15": 20023,
+        "thread_16": 20024,
+        "thread_17": 20025,
+        "thread_18": 20026,
+        "thread_19": 20027,
+        "thread_20": 20028
+    },
+    "select_links": {
+        "YouTube": [
+            "https://youtu.be",
+            "https://youtube.com",
+            "https://www.youtube.com",
+            "https://yt3.ggpht.com",
+            "https://yt4.ggpht.com",
+            "https://i.ytimg.com",
+            "https://rr2---sn-0ahjg0-gv8e.googlevideo.com",
+            "https://rr8---sn-ug5onuxaxjvh-n8vs.googlevideo.com",
+            "https://rr5---sn-ug5onuxaxjvh-n8vz.googlevideo.com",
+            "https://rr7---sn-ug5onuxaxjvh-n8v6.googlevideo.com",
+            "https://rr1---sn-4g5ednds.googlevideo.com",
+            "https://rr4---sn-0ahjg0-gv8e.googlevideo.com",
+            "https://r2---sn-nh5gu5mp5u5-2oil.googlevideo.com",
+            "https://rr3---sn-5hneknek.googlevideo.com",
+            "https://rr6---sn-8pxuuxaj5hcvqp5-2oid.googlevideo.com",
+            "https://r3---sn-xupn5a5uxbt-j5ps.googlevideo.com",
+            "https://r3---sn-nh5gu5mp5u5-2oil.googlevideo.com",
+            "https://r1---sn-x5guiapo3uxax-cngk.googlevideo.com",
+            "https://rr1---sn-0ahjg0-gv8e.googlevideo.com",
+            "https://rr5---sn-ntq7yney.googlevideo.com",
+            "https://rr4---sn-ntq7yns7.googlevideo.com",
+            "https://rr1---sn-ntqe6nel.googlevideo.com",
+            "https://rr3---sn-q4fl6n6r.googlevideo.com",
+            "https://r4---sn-4pvgq-n8vs.googlevideo.com",
+            "https://rr8---sn-ug5onuxaxjvh-n8v6.googlevideo.com",
+            "https://accounts.google.com.ua",
+            "https://yt3.ggpht.com/ytc/AIdro_kBR8ozAUUPLsX2hqsvOZjodm4iEMbWbiDG8L0fM4dTEQ=s68-c-k-c0x00ffffff-no-rj"
+        ],
+        "NNM-Club": [
+            "https://nnmclub.to",
+            "https://nnmstatic.win"
+        ],
+        "RuTracker": [
+            "https://rutracker.org",
+            "https://static.rutracker.cc"
+        ],
+        "LostFilm": [
+            "https://lostfilm.tv",
+            "https://static.lostfilm.top",
+            "https://p1.lostfilm.tv",
+            "https://store.bogi.ru"
+        ],
+        "NTC": [
+            "https://ntc.party"
+        ],
+        "Instagram": [
+            "https://instagram.com",
+            "https://www.instagram.com",
+            "https://static.cdninstagram.com/rsrc.php"
+        ]
+    }
+}
