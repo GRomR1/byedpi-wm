@@ -10,7 +10,7 @@ https://ntc.party/t/byedpi-web-manager-windows-linux
 - **ARMv7** - большинство ARM роутеров и одноплатников
 - **ARMv6** - старые MikroTik, Raspberry Pi Zero и подобное железо
 
-## [ [ PULL FROM DOCKER HUB ] ](https://hub.docker.com/r/eblet/byedpi-web-manager)
+## [ [ DOCKER HUB ] ](https://hub.docker.com/r/eblet/byedpi-web-manager)
 
 ## Быстрый старт
 
