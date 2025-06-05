@@ -18,7 +18,6 @@ docker run -d \
   -v $(pwd)/data:/app/data \
   eblet/byedpi-web-manager:latest
 ```
-
 ## Для MikroTik (RouterOS 7+)
 1. Создайте veth интерфейс и запустите контейнер с терминала:
 
@@ -35,8 +34,10 @@ add address=192.168.254.2/24 gateway=192.168.254.1 name=byedpi
 - Всё работает в Docker, никаких зависимостей
 - Можно использовать на роутерах MikroTik с контейнерами
 
-## Локальная сборка образов (build.sh)
+## Подбор стратегий
+https://ntc.party/t/byedpi-web-manager-windows-linux/16575/22
 
+## Локальная сборка образов (build.sh)
 Можно собрать образы под любую архитектуру прямо у себя:
 
 ```bash
