@@ -10,6 +10,7 @@ RUN apk add --no-cache \
     php82-curl \
     php82-json \
     php82-mbstring \
+    php82-posix \
     php82-session \
     php82-tokenizer \
     supervisor \

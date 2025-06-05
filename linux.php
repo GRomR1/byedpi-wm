@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+// Early debug logging
+@file_put_contents('/app/logs/byedpi/php_debug.log', "[" . date('Y-m-d H:i:s') . "] Script started\n", FILE_APPEND);
+
 set_time_limit(60);
 
 header("Access-Control-Allow-Origin: *");
@@ -11,10 +14,13 @@ header("Pragma: no-cache");
 header("Content-Type: application/json; charset=utf-8");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    @file_put_contents('/app/logs/byedpi/php_debug.log', "[" . date('Y-m-d H:i:s') . "] OPTIONS request\n", FILE_APPEND);
     http_response_code(204);
     header('Content-Length: 0');
     exit();
 }
+
+@file_put_contents('/app/logs/byedpi/php_debug.log', "[" . date('Y-m-d H:i:s') . "] Request method: " . $_SERVER['REQUEST_METHOD'] . "\n", FILE_APPEND);
 
 function send_json_response(array $response): void {
     echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -37,74 +43,84 @@ function is_port_in_use(int $port): array {
     return ['in_use' => false];
 }
 
+// Debug logging function
+function debug_log($msg) {
+    $log_file = '/app/logs/byedpi/php_debug.log';
+    $ts = date('Y-m-d H:i:s');
+    @file_put_contents($log_file, "[$ts] $msg\n", FILE_APPEND);
+}
+
 function find_process(int $port, string $real_file_path): array {
+    debug_log("find_process: port=$port, real_file_path=$real_file_path");
     if ($port < 1 || $port > 65535) {
+        debug_log("find_process: invalid port");
         return ['error' => 'Неверный номер порта.'];
     }
     if (empty($real_file_path)) {
+        debug_log("find_process: empty real_file_path");
         return ['error' => 'Путь не может быть пустым.'];
     }
 
-    // Check if port is listening using netstat
     $netstat_cmd = "netstat -tlnp 2>/dev/null | grep ':$port '";
     $netstat_output = shell_exec($netstat_cmd) ?? '';
     $netstat_output = trim($netstat_output);
-    
+    debug_log("find_process: netstat output: $netstat_output");
+
     if (empty($netstat_output)) {
+        debug_log("find_process: port not in use");
         return ['exists' => false];
     }
 
-    // Extract PID from netstat output (format: tcp 0 0 0.0.0.0:20001 0.0.0.0:* LISTEN PID/process)
-    if (preg_match('/LISTEN\s+(\d+)\//', $netstat_output, $matches)) {
+    if (preg_match('/LISTEN\\s+(\\d+)\//', $netstat_output, $matches)) {
         $pid = $matches[1];
+        debug_log("find_process: pid from netstat: $pid");
     } else {
-        // If netstat doesn't show PID, try to find process by looking at all ciadpi processes
         $ps_output = shell_exec("ps aux | grep ciadpi | grep -v grep") ?? '';
+        debug_log("find_process: ps aux output: $ps_output");
         $ps_lines = explode("\n", trim($ps_output));
-        
         foreach ($ps_lines as $line) {
             if (strpos($line, "-p $port") !== false || strpos($line, "--port $port") !== false) {
-                // Extract PID from ps output
-                $parts = preg_split('/\s+/', trim($line));
+                $parts = preg_split('/\\s+/', trim($line));
                 if (count($parts) >= 2 && is_numeric($parts[1])) {
                     $pid = $parts[1];
+                    debug_log("find_process: pid from ps: $pid, line: $line");
                     break;
                 }
             }
         }
-        
         if (!isset($pid)) {
+            debug_log("find_process: no pid found");
             return ['exists' => false];
         }
     }
 
-    // Get command line from ps instead of /proc/pid/cmdline
     $ps_cmd = "ps -p $pid -o args --no-headers 2>/dev/null";
     $cmdline = shell_exec($ps_cmd) ?? '';
     $cmdline = trim($cmdline);
-    
+    debug_log("find_process: cmdline for pid $pid: $cmdline");
+
     if (empty($cmdline)) {
+        debug_log("find_process: empty cmdline");
         return ['error' => 'Не удалось получить командную строку процесса.'];
     }
 
     $real_basename = basename($real_file_path);
-    
-    // Check if port matches
     $has_correct_port = strpos($cmdline, "-p $port") !== false || strpos($cmdline, "--port $port") !== false;
-    
-    // Check if it's the correct binary by looking at cmdline
     $is_correct_binary = (strpos($cmdline, $real_file_path) !== false || 
                          strpos($cmdline, $real_basename) !== false ||
                          strpos($cmdline, 'ciadpi') !== false ||
                          strpos($cmdline, '/app/byedpi/ciadpi') !== false);
-    
+    debug_log("find_process: has_correct_port=$has_correct_port, is_correct_binary=$is_correct_binary");
+
     if ($is_correct_binary && $has_correct_port) {
+        debug_log("find_process: process found, pid=$pid");
         return [
             'exists' => true,
             'pid' => (int)$pid,
             'cmd' => $cmdline
         ];
     }
+    debug_log("find_process: process not ours");
     return ['exists' => false];
 }
 
@@ -237,22 +253,29 @@ function parse_cmd(string $cmd, int $port): array {
 }
 
 function get_current_state(int $port, string $real_file_path): array {
+    debug_log("get_current_state: port=$port, real_file_path=$real_file_path");
     $port_status = is_port_in_use($port);
+    debug_log("get_current_state: port_status=" . json_encode($port_status));
     if (isset($port_status['error'])) {
+        debug_log("get_current_state: error in port_status: " . $port_status['error']);
         return ['type' => 'error', 'error' => $port_status['error']];
     }
 
     if (!$port_status['in_use']) {
+        debug_log("get_current_state: port free");
         return ['type' => 'free'];
     }
 
     $process_info = find_process($port, $real_file_path);
+    debug_log("get_current_state: process_info=" . json_encode($process_info));
     if (isset($process_info['error'])) {
+        debug_log("get_current_state: error in process_info: " . $process_info['error']);
         return ['type' => 'error', 'error' => $process_info['error']];
     }
 
     if ($process_info['exists']) {
         $parsed = parse_cmd($process_info['cmd'], $port);
+        debug_log("get_current_state: process in_use_by_us, pid=" . $process_info['pid']);
         return [
             'type' => 'in_use_by_us',
             'pid' => $process_info['pid'],
@@ -262,6 +285,7 @@ function get_current_state(int $port, string $real_file_path): array {
         ];
     }
 
+    debug_log("get_current_state: port in use by others");
     return ['type' => 'in_use_by_others'];
 }
 
@@ -311,13 +335,19 @@ function build_response(string $action, array $state, string $real_file_path, in
 }
 
 $input_data = file_get_contents('php://input');
+@file_put_contents('/app/logs/byedpi/php_debug.log', "[" . date('Y-m-d H:i:s') . "] Input data: " . $input_data . "\n", FILE_APPEND);
+
 $request_data = json_decode($input_data, true);
+@file_put_contents('/app/logs/byedpi/php_debug.log', "[" . date('Y-m-d H:i:s') . "] JSON decode result: " . json_encode($request_data) . "\n", FILE_APPEND);
 
 if (json_last_error() !== JSON_ERROR_NONE) {
+    @file_put_contents('/app/logs/byedpi/php_debug.log', "[" . date('Y-m-d H:i:s') . "] JSON error: " . json_last_error_msg() . "\n", FILE_APPEND);
     send_json_response(['error' => true, 'message' => 'Некорректный формат JSON']);
 }
 
 $validation = validate_request_data($request_data);
+@file_put_contents('/app/logs/byedpi/php_debug.log', "[" . date('Y-m-d H:i:s') . "] Validation result: " . json_encode($validation) . "\n", FILE_APPEND);
+
 if (isset($validation['error'])) {
     send_json_response(['error' => true, 'message' => $validation['error']]);
 }
