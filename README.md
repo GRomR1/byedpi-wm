@@ -26,8 +26,7 @@ docker run -d \
 /interface veth
 add address=192.168.254.2/24 gateway=192.168.254.1 name=byedpi
 
-/container/add remote-image=eblet/byedpi-web-manager:latest root-dir=usb1/docker/byedpi interface=byedpi logging=yes
-/container/start 0
+/container/add remote-image=eblet/byedpi-web-manager:latest root-dir=usb1/docker/byedpi interface=byedpi
 ```
 
 ## Особенности
