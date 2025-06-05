@@ -61,8 +61,6 @@ https://ntc.party/t/byedpi-web-manager-windows-linux/16575/22
 ./docker/build.sh all
 
 # Запуск локально собранного образа (например, amd64):
-
-```bash
 docker run -d -p 8080:80 byedpi-web-manager:amd64
 ```
 
