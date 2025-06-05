@@ -40,11 +40,11 @@ class RequestValidator {
     }
 
     public static function validateConnectionTimeout($value) {
-        return self::validateNumeric($value, 1, 5, "Ошибка значения curl_connection_timeout.");
+        return self::validateNumeric($value, 1, 15, "Ошибка значения curl_connection_timeout.");
     }
 
     public static function validateMaxTimeout($value) {
-        return self::validateNumeric($value, 1, 10, "Ошибка значения curl_max_timeout.");
+        return self::validateNumeric($value, 1, 30, "Ошибка значения curl_max_timeout.");
     }
 
     public static function validateHttpMethod($value) {
