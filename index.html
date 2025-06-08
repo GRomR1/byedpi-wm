@@ -15,6 +15,7 @@
     <div class="container">
         <div class="block" id="block-1">
             <p class="text-xl font-normal">ByeDPI Web Manager</p>
+            <span class="text-base font-normal" id="my-os">n/a</span>
         </div>
 
         <div class="block" id="block-2">
@@ -41,11 +42,20 @@
                             <th>Значение</th>
                         </tr>
                     </thead>
-                    <tbody>					
+                    <tbody>
                         <tr id="buf-size">
                             <td>
                                 <select class="select no-border full-width form-element" id="gen-buf-size-weight">
                                     <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
                                     <option value="10">10</option>
                                 </select>
                             </td>
@@ -57,6 +67,15 @@
                             <td>
                                 <select class="select no-border full-width form-element" id="gen-def-ttl-weight">
                                     <option value="0" selected>Не использовать</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
                                     <option value="10">10</option>
                                 </select>
                             </td>
@@ -931,7 +950,7 @@
                                     <option value="10">10</option>
                                 </select>
                             </td>
-                        </tr>						
+                        </tr>
                         <tr>
                             <td>
                                 <select class="select no-border full-width form-element" id="gen-s-weight">
@@ -1750,7 +1769,8 @@
             <p class="text-lg font-normal border-b">Ссылки для проверки стратегий</p>
             <textarea id="links" class="textarea text-sm"></textarea>
             <div class="grid grid-cols-5">
-                <select class="select full-width form-element like-a-button" id="select-links"></select>
+                <select class="select full-width form-element like-a-button" id="select-links">
+				</select>
                 <button type="button" class="button form-element like-a-button" id="add-links">Добавить ссылки</button>
                 <button type="button" class="button full-width form-element like-a-button" id="copy-links">Копировать</button>
                 <button type="button" class="button full-width form-element like-a-button" id="copy-links-domains">Копировать домены</button>				
@@ -1767,7 +1787,6 @@
                         <th>Максимальный таймаут</th>
                         <th>Метод HTTP запроса</th>
                         <th>Версия HTTP запроса</th>
-						<th>Версия TLS</th>
                         <th>User Agent</th>
                     </tr>
                 </thead>
@@ -1776,10 +1795,20 @@
                         <td>
                             <select class="select no-border full-width form-element" id="curl-connection-timeout">
                                 <option value="1">1</option>
-                                <option value="2" selected>2</option>
+                                <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
-                                <option value="5">5</option>
+                                <option value="5" selected>5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
                             </select>
                         </td>
                         <td>
@@ -1787,13 +1816,18 @@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
-                                <option value="4" selected>4</option>
+                                <option value="4">4</option>
                                 <option value="5">5</option>
                                 <option value="6">6</option>
                                 <option value="7">7</option>
                                 <option value="8">8</option>
                                 <option value="9">9</option>
-                                <option value="10">10</option>
+                                <option value="10" selected>10</option>
+                                <option value="12">12</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
                             </select>
                         </td>
                         <td>
@@ -1804,21 +1838,11 @@
                         </td>
                         <td>
                             <select class="select no-border full-width form-element" id="curl-http-version">
-							    <option value="default">По умолчанию</option>
                                 <option value="http1-0">HTTP/1.0</option>
                                 <option value="http1-1" selected>HTTP/1.1</option>
                                 <option value="http2">HTTP/2</option>
                             </select>
                         </td>
-                        <td>
-                            <select class="select no-border full-width form-element" id="curl-tls-version">
-                                <option value="default" selected>По умолчанию</option>
-                                <option value="tls1-0">TLS 1.0</option>
-                                <option value="tls1-1">TLS 1.1</option>
-                                <option value="tls1-2">TLS 1.2</option>
-                                <option value="tls1-3">TLS 1.3</option>								
-                            </select>
-                        </td>						
                         <td>
                             <select class="select no-border full-width form-element" id="curl-user-agent">
                                 <option value="1" selected>(Windows) Microsoft Edge</option>
@@ -1855,7 +1879,6 @@
                                 <option value="12" selected>12</option>
                                 <option value="16">16</option>
                                 <option value="20">20</option>
-                                <option value="24">24</option>								
                             </select>
                         </td>
                         <td><span class="for-text no-border full-width form-element" id="current-threads-count">0</span></td>
@@ -1945,8 +1968,8 @@
                         <button class="button form-element like-a-button" id="copy-main-server-1">Копировать</button>
                         <button class="button form-element like-a-button" id="clean-main-server-1">Очистить</button>
 					</div>
-                        <button type="button" class="button form-element like-a-button" id="start-main-server-1" hidden>Запустить</button>
-                        <button type="button" class="button form-element like-a-button" id="stop-main-server-1" hidden>Остановить</button>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-1">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-1">Остановить</button>
 
                 </div>
 
@@ -1965,8 +1988,8 @@
                         <button class="button form-element like-a-button" id="copy-main-server-2">Копировать</button>
                         <button class="button form-element like-a-button" id="clean-main-server-2">Очистить</button>
 					</div>
-                        <button type="button" class="button form-element like-a-button" id="start-main-server-2" hidden>Запустить</button>
-                        <button type="button" class="button form-element like-a-button" id="stop-main-server-2" hidden>Остановить</button>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-2">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-2">Остановить</button>
 
                 </div>
 
@@ -1985,8 +2008,8 @@
                         <button class="button form-element like-a-button" id="copy-main-server-3">Копировать</button>
                         <button class="button form-element like-a-button" id="clean-main-server-3">Очистить</button>
 					</div>
-                        <button type="button" class="button form-element like-a-button" id="start-main-server-3" hidden>Запустить</button>
-                        <button type="button" class="button form-element like-a-button" id="stop-main-server-3" hidden>Остановить</button>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-3">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-3">Остановить</button>
 
                 </div>
 
@@ -2005,8 +2028,8 @@
                         <button class="button form-element like-a-button" id="copy-main-server-4">Копировать</button>
                         <button class="button form-element like-a-button" id="clean-main-server-4">Очистить</button>
 					</div>
-                        <button type="button" class="button form-element like-a-button" id="start-main-server-4" hidden>Запустить</button>
-                        <button type="button" class="button form-element like-a-button" id="stop-main-server-4" hidden>Остановить</button>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-4">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-4">Остановить</button>
 
                 </div>
 
@@ -2025,8 +2048,8 @@
                         <button class="button form-element like-a-button" id="copy-main-server-5">Копировать</button>
                         <button class="button form-element like-a-button" id="clean-main-server-5">Очистить</button>
 					</div>
-                        <button type="button" class="button form-element like-a-button" id="start-main-server-5" hidden>Запустить</button>
-                        <button type="button" class="button form-element like-a-button" id="stop-main-server-5" hidden>Остановить</button>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-5">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-5">Остановить</button>
 
                 </div>
 
@@ -2045,8 +2068,8 @@
                         <button class="button form-element like-a-button" id="copy-main-server-6">Копировать</button>
                         <button class="button form-element like-a-button" id="clean-main-server-6">Очистить</button>
 					</div>
-                        <button type="button" class="button form-element like-a-button" id="start-main-server-6" hidden>Запустить</button>
-                        <button type="button" class="button form-element like-a-button" id="stop-main-server-6" hidden>Остановить</button>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-6">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-6">Остановить</button>
 
                 </div>
 
@@ -2065,8 +2088,8 @@
                         <button class="button form-element like-a-button" id="copy-main-server-7">Копировать</button>
                         <button class="button form-element like-a-button" id="clean-main-server-7">Очистить</button>
 					</div>
-                        <button type="button" class="button form-element like-a-button" id="start-main-server-7" hidden>Запустить</button>
-                        <button type="button" class="button form-element like-a-button" id="stop-main-server-7" hidden>Остановить</button>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-7">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-7">Остановить</button>
 
                 </div>
 
@@ -2085,8 +2108,8 @@
                         <button class="button form-element like-a-button" id="copy-main-server-8">Копировать</button>
                         <button class="button form-element like-a-button" id="clean-main-server-8">Очистить</button>
 					</div>
-                        <button type="button" class="button form-element like-a-button" id="start-main-server-8" hidden>Запустить</button>
-                        <button type="button" class="button form-element like-a-button" id="stop-main-server-8" hidden>Остановить</button>
+                        <button type="button" class="button form-element like-a-button" id="start-main-server-8">Запустить</button>
+                        <button type="button" class="button form-element like-a-button" id="stop-main-server-8">Остановить</button>
 
                 </div>
             </div>
@@ -2101,18 +2124,13 @@
 			</div>
         </div>
     </div>
-	
-<script src="js/1_fix_button_select_input.js?_=<?= Date.now() ?>"></script>
-<script type="module" src="js/2_log_message.js?_=<?= Date.now() ?>"></script>
-<script type="module" src="js/3_prepare.js?_=<?= Date.now() ?>"></script>
-<script src="js/4_generate.js?_=<?= Date.now() ?>"></script>
-<script src="js/5_copy.js?_=<?= Date.now() ?>"></script>
-<script src="js/6_clean.js?_=<?= Date.now() ?>"></script>
-<script src="js/7_add_used_strategies.js?_=<?= Date.now() ?>"></script>
-<script src="js/8_default_select_links.js?_=<?= Date.now() ?>"></script>
-<script src="js/9_start_stop_main.js?_=<?= Date.now() ?>"></script>
-<script src="js/10_start_stop_test.js?_=<?= Date.now() ?>"></script>
-<script src="js/11_validate_input.js?_=<?= Date.now() ?>"></script>
-<script src="js/12_save_domains.js?_=<?= Date.now() ?>"></script>
+
+<script src="js/prepare.js?_=<?= Date.now() ?>"></script>
+<script src="js/generate.js?_=<?= Date.now() ?>"></script>
+<script src="js/save_domains.js?_=<?= Date.now() ?>"></script>
+<script src="js/start_stop_main.js?_=<?= Date.now() ?>"></script>
+<script src="js/start_stop_test.js?_=<?= Date.now() ?>"></script>
+
+
 </body>
 </html>

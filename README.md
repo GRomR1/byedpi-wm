@@ -74,4 +74,3 @@ MIT
 **Оригинальный топик:** https://ntc.party/t/byedpi-web-manager-windows-linux
 
 **Docker версия подготовлена по просьбам пользователей** 
-
